@@ -6,41 +6,28 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    // Rigidbody of the player.
-    private Rigidbody rb;
+    // the speed of movement
+    public float moveSpeed;
 
-    // Movement along X and Y axes.
-    private float movementX;
-    private float movementY;
+    // the direction of movement
+    private Vector3 moveDirection = Vector3.zero; 
 
-    // Speed at which the player moves.
-    public float speed = 0;
-
-    // Start is called before the first frame update.
-    void Start()
+    void Update()
     {
-        // Get and store the Rigidbody component attached to the player.
-        rb = GetComponent<Rigidbody>();
+        if (moveDirection != Vector3.zero)
+        {
+            // Rotating the character to look in the direction of movement
+            transform.rotation = Quaternion.LookRotation(moveDirection);
+        }
+
+        // Move
+        transform.position += moveDirection * moveSpeed * Time.deltaTime;
     }
 
-    // This function is called when a move input is detected.
-    void OnMove(InputValue movementValue)
+    public void OnMove(InputValue value)
     {
-        // Convert the input value into a Vector2 for movement.
-        Vector2 movementVector = movementValue.Get<Vector2>();
-
-        // Store the X and Y components of the movement.
-        movementX = movementVector.x;
-        movementY = movementVector.y;
-    }
-
-    // FixedUpdate is called once per fixed frame-rate frame.
-    private void FixedUpdate()
-    {
-        // Create a 3D movement vector using the X and Y inputs.
-        Vector3 movement = new Vector3(movementX, 0.0f, movementY);
-
-        // Apply force to the Rigidbody to move the player.
-        rb.AddForce(movement * speed);
+        Vector2 input = value.Get<Vector2>();
+        // Set new direction of movement based on input
+        moveDirection = new Vector3(input.x, 0, input.y).normalized;
     }
 }

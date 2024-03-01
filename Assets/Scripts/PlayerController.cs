@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour
     public float moveSpeed;
 
     // the direction of movement
-    private Vector3 moveDirection = Vector3.zero; 
+    private Vector3 moveDirection = Vector3.zero;
 
     void Update()
     {

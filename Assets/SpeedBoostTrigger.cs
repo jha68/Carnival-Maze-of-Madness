@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class SpeedBoostTrigger : MonoBehaviour
 {
-    public float boostAmount = 2.0f; // The amount to boost the player's speed
-    public float boostDuration = 0.1f; // How long the boost lasts
+    public float boostAmount = 20f; // The amount to boost the player's speed
 
     private void OnTriggerEnter(Collider other)
     {
@@ -17,7 +16,7 @@ public class SpeedBoostTrigger : MonoBehaviour
             if (playerController != null)
             {
                 // Start the boost coroutine
-                //StartCoroutine(playerController.BoostSpeed(boostAmount, boostDuration));
+                playerController.IncreaseStamina(boostAmount);
             }
             Destroy(gameObject);
         }

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpeedBoostTrigger : MonoBehaviour
+public class ReplenishStamina : MonoBehaviour
 {
     public float boostAmount = 20f; // The amount to boost the player's speed
 

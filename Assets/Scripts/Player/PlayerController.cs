@@ -8,7 +8,6 @@ using TMPro;
 public class PlayerController : MonoBehaviour
 {
 
-    public GameObject bulletPrefab;
     public Transform bulletSpawnPoint;
 
 

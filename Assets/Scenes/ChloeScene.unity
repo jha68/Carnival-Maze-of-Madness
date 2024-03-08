@@ -4328,8 +4328,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lightOff: {fileID: 2100000, guid: cb6f1d0cd50b0c04d9e0a8d00d9976d6, type: 2}
   lightOn: {fileID: 2100000, guid: c0e5d8c4100fd6b4f8b9a8e431695b6c, type: 2}
-  correct: {fileID: 0}
-  wrong: {fileID: 0}
+  correct: {fileID: 2100000, guid: 77d0e982a5c3da64b8d2589adedc6619, type: 2}
+  wrong: {fileID: 2100000, guid: c75b607a3f1df1b4f9ef1abe23870071, type: 2}
   hasGenerated: 0
   isCorrect: 0
   lightsReset: 0

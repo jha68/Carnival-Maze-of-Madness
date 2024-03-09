@@ -34,7 +34,7 @@ public class PlayerController : MonoBehaviour
 
     public int maxBullets = 5;
     private int currentBullets;
-
+    public Animator animator;
 
     void Start()
     {
@@ -85,12 +85,15 @@ public class PlayerController : MonoBehaviour
         }
 
 
-
+        Vector2 input = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+        float speed = input.magnitude;
         float currentSpeed = moveSpeed;
         if (isRunning)
         {
             currentSpeed *= runSpeedMultiplier;
+            speed *= runSpeedMultiplier;
         }
+        animator.SetFloat("Speed", speed);
 
 
         if (moveDirection != Vector3.zero)
@@ -101,7 +104,6 @@ public class PlayerController : MonoBehaviour
 
         // Move
         transform.position += moveDirection * currentSpeed * Time.deltaTime;
-
 
         if (Input.GetKeyDown(KeyCode.Z) && currentBullets > 0)
         {

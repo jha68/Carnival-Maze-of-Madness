@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Monster
   - JumpPad
+  - TeddyBear
+  - Bullet
   layers:
   - Default
   - TransparentFX
@@ -13,7 +15,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - Buttons
   - 
   - 
   - 

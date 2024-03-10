@@ -38,7 +38,7 @@ public class FollowPlayer : MonoBehaviour
         Vector3 targetPosition = player.position - directionToPlayer * minimumDistanceToPlayer;
         Quaternion lookRotation = Quaternion.LookRotation(new Vector3(directionToPlayer.x, 0, directionToPlayer.z));
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
-        if (distanceToPlayer < minimumDistanceToPlayer + 0.15f)
+        if (distanceToPlayer < minimumDistanceToPlayer + 0.35f)
         {
             animator.SetBool("isWalking", false);
         }

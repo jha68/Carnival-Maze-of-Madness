@@ -43,8 +43,10 @@ public class ButtonCollisionController: MonoBehaviour
                     generatePattern.StorePressedButton(lightbulb);
                     isTurnedOn = true;
                 }
+
                 onButtonPress.Invoke();
             }
         }
     }
+
 }

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-
+using UnityEngine.SceneManagement;
 
 public class GeneratePattern : MonoBehaviour
 {
@@ -20,6 +20,13 @@ public class GeneratePattern : MonoBehaviour
     private GameObject[] orderedLightbulbs; // the correct pattern
     private GameObject[] pressedLightbulbs; // the player's input pattern
     private UnityEvent onButtonPress;
+
+    public Transform player; // Reference to the player GameObject
+    public Camera mainCamera;
+    public float rotationSpeed = 5f; // Speed of camera rotation
+    public float distanceFromPlayer = 3f; // Distance of camera from player
+    public float heightOffset = 0f; // Height offset of camera from player
+    private bool rotating = false; // Flag to indicate if rotation is in progress
 
     // Start is called before the first frame update
     void Start()
@@ -53,6 +60,11 @@ public class GeneratePattern : MonoBehaviour
 
             if (Input.GetButtonDown("Interact"))
             {
+                //if (!rotating)
+                //{
+                //    RotateCamera();
+                //}
+
                 Debug.Log("Button pressed!");
                 onButtonPress.Invoke();
 
@@ -128,6 +140,7 @@ public class GeneratePattern : MonoBehaviour
                 Debug.Log("correct pattern!");
                 isCorrect = true;
                 DisplayCorrect();
+                FinishMiniGame();
             }
         }
     }
@@ -156,4 +169,41 @@ public class GeneratePattern : MonoBehaviour
         ResetLights();
     }
 
+    void FinishMiniGame()
+    {
+        // Restore player's position after finishing mini-game
+        float posX = PlayerPrefs.GetFloat("PlayerPosX");
+        float posY = PlayerPrefs.GetFloat("PlayerPosY");
+        float posZ = PlayerPrefs.GetFloat("PlayerPosZ");
+
+        GameObject.FindGameObjectWithTag("Player").transform.position = new Vector3(posX, posY, posZ);
+
+        SceneManager.LoadScene("SampleScene - Copy");
+
+    }
+
+    //void RotateCamera()
+    //{
+    //    Vector3 playerForward = player.forward;
+    //    Quaternion targetRotation = Quaternion.LookRotation(playerForward, Vector3.up);
+    //    StartCoroutine(RotateCameraCoroutine(targetRotation));
+    //}
+
+    //IEnumerator RotateCameraCoroutine(Quaternion targetRotation)
+    //{
+    //    rotating = true;
+
+    //    Smoothly rotate the camera towards the target rotation
+    //    while (Quaternion.Angle(mainCamera.transform.rotation, targetRotation) > 0.01f)
+    //    {
+    //        mainCamera.transform.rotation = Quaternion.Slerp(mainCamera.transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+    //        Calculate new position for the camera behind the player
+
+    //       Vector3 newPosition = player.position - (player.forward * distanceFromPlayer) + (Vector3.up * heightOffset);
+    //        mainCamera.transform.position = newPosition;
+    //        yield return null;
+    //    }
+
+    //    rotating = false;
+    //}
 }

@@ -8,7 +8,6 @@ using TMPro;
 public class PlayerController : MonoBehaviour
 {
 
-    public GameObject bulletPrefab; 
     public Transform bulletSpawnPoint;
 
 
@@ -23,7 +22,7 @@ public class PlayerController : MonoBehaviour
     public float staminaRegenPerSecond = 3f;
 
     public TextMeshProUGUI staminaText;
-    public TextMeshProUGUI bulletsText;
+    public List<GameObject> bulletImages;
 
     // Time after the steminer is zero, it does not recover
     public float runDelay = 2f;
@@ -35,14 +34,14 @@ public class PlayerController : MonoBehaviour
 
     public int maxBullets = 5;
     private int currentBullets;
-
+    public Animator animator;
 
     void Start()
     {
         currentBullets = maxBullets;
         stamina = maxStamina;
         UpdateStaminaText(); // Update the stamina text at the start
-        UpdateBulletsText(); // Update the bullets text at the start
+        UpdateBulletsUI(); // Update the bullets text at the start
     }
 
     void Update()
@@ -57,13 +56,13 @@ public class PlayerController : MonoBehaviour
                 canRun = false;
                 timeSinceStaminaDepleted = 0;
             }
-        } 
-        else 
+        }
+        else
         {
             isRunning = false;
         }
 
-        if (!canRun) 
+        if (!canRun)
         {
             timeSinceStaminaDepleted += Time.deltaTime;
             if (timeSinceStaminaDepleted >= runDelay)
@@ -86,12 +85,15 @@ public class PlayerController : MonoBehaviour
         }
 
 
-
+        Vector2 input = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+        float speed = input.magnitude;
         float currentSpeed = moveSpeed;
         if (isRunning)
         {
             currentSpeed *= runSpeedMultiplier;
+            speed *= runSpeedMultiplier;
         }
+        animator.SetFloat("Speed", speed);
 
 
         if (moveDirection != Vector3.zero)
@@ -99,18 +101,17 @@ public class PlayerController : MonoBehaviour
             // Rotating the character to look in the direction of movement
             transform.rotation = Quaternion.LookRotation(moveDirection);
         }
-        
+
         // Move
         transform.position += moveDirection * currentSpeed * Time.deltaTime;
-        
 
-        if (Input.GetKeyDown(KeyCode.Z) && currentBullets > 0) 
+        if (Input.GetKeyDown(KeyCode.Z) && currentBullets > 0)
         {
             GetComponent<BulletShooter>().Shoot();
             currentBullets--;
         }
         UpdateStaminaText(); // Update the stamina text every frame
-        UpdateBulletsText(); // Update the bullets text every frame
+        UpdateBulletsUI(); // Update the bullets text every frame
 
     }
 
@@ -123,13 +124,22 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void UpdateBulletsText()
+    void UpdateBulletsUI()
     {
-        if (bulletsText != null) // Check if the Text reference is assigned
+        for (int i = 0; i < bulletImages.Count; i++)
         {
-            bulletsText.text = "Bullets: " + Mathf.RoundToInt(currentBullets).ToString();
+            // If the current index is less than the currentBullets, enable the bullet image
+            if (i < currentBullets)
+            {
+                bulletImages[i].SetActive(true);
+            }
+            else
+            {
+                bulletImages[i].SetActive(false);
+            }
         }
     }
+
 
     public void OnMove(InputValue value)
     {
@@ -141,8 +151,8 @@ public class PlayerController : MonoBehaviour
     public void IncreaseStamina(float amount)
     {
         stamina += amount;
-        stamina = Mathf.Clamp(stamina, 0, maxStamina); 
-        UpdateStaminaText(); 
+        stamina = Mathf.Clamp(stamina, 0, maxStamina);
+        UpdateStaminaText();
     }
 
     // increasing the number of bullets
@@ -150,6 +160,6 @@ public class PlayerController : MonoBehaviour
     {
         currentBullets += amount;
         currentBullets = Mathf.Clamp(currentBullets, 0, maxBullets); // Ensure that the number of bullets does not exceed the maximum
-        UpdateBulletsText();
+        UpdateBulletsUI();
     }
 }

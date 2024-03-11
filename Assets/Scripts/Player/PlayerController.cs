@@ -35,6 +35,26 @@ public class PlayerController : MonoBehaviour
     public int maxBullets = 5;
     private int currentBullets;
     public Animator animator;
+    //jump
+    private Rigidbody rb;
+    public Vector3 jump;
+    public float jumpForce = 4.0f;
+    public bool isGrounded;
+    //crouch
+    public float crouchSpeed;
+    [Header("Keybinds")]
+    public KeyCode jumpKey = KeyCode.Space;
+    public KeyCode sprintKey = KeyCode.LeftShift;
+    public KeyCode crouchKey = KeyCode.LeftControl;
+
+    public MovementState state;
+    public enum MovementState
+    {
+        walking,
+        sprinting,
+        crouching,
+        air
+    }
 
     void Start()
     {
@@ -42,11 +62,13 @@ public class PlayerController : MonoBehaviour
         stamina = maxStamina;
         UpdateStaminaText(); // Update the stamina text at the start
         UpdateBulletsUI(); // Update the bullets text at the start
+        rb = GetComponent<Rigidbody>();
+        jump = new Vector3(0.0f, 2.0f, 0.0f);
     }
 
     void Update()
     {
-        if (Input.GetKey(KeyCode.Space) && canRun && stamina > 0)
+        if (Input.GetKey(sprintKey) && canRun && stamina > 0)
         {
             isRunning = true;
             stamina -= staminaDecreasePerSecond * Time.deltaTime;
@@ -60,6 +82,17 @@ public class PlayerController : MonoBehaviour
         else
         {
             isRunning = false;
+        }
+        //jump
+        if (Input.GetKeyDown(jumpKey) && isGrounded)
+        {
+            rb.AddForce(jump * jumpForce, ForceMode.Impulse);
+            isGrounded = false;
+        } // Mode - Crouching
+        else if (Input.GetKey(crouchKey))
+        {
+            state = MovementState.crouching;
+            moveSpeed = crouchSpeed;
         }
 
         if (!canRun)
@@ -161,5 +194,19 @@ public class PlayerController : MonoBehaviour
         currentBullets += amount;
         currentBullets = Mathf.Clamp(currentBullets, 0, maxBullets); // Ensure that the number of bullets does not exceed the maximum
         UpdateBulletsUI();
+    }
+
+    void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        switch (hit.gameObject.tag)
+        {
+            case "JumpPad":
+                rb.AddForce(jump * 50f, ForceMode.Impulse);
+                break;
+        }
+    }
+    void OnCollisionStay()
+    {
+        isGrounded = true;
     }
 }

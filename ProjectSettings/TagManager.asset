@@ -8,6 +8,10 @@ TagManager:
   - JumpPad
   - TeddyBear
   - Bullet
+  - Target1
+  - Target2
+  - Target3
+  - Apple
   layers:
   - Default
   - TransparentFX

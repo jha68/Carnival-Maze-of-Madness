@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.18035275, g: 0.2257897, b: 0.30702734, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2214,7 +2214,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c61c3291231004d8995ed0da6b1dba5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 9018482836787273347, guid: 21d3cfc11844ef548b6bbc1c9b67ff95, type: 3}
   bulletSpawnPoint: {fileID: 581365094}
   moveSpeed: 5
   runSpeedMultiplier: 1.5
@@ -2223,9 +2222,18 @@ MonoBehaviour:
   staminaDecreasePerSecond: 20
   staminaRegenPerSecond: 5
   staminaText: {fileID: 882331260}
-  bulletsText: {fileID: 842449281}
+  bulletImages: []
   runDelay: 2
   maxBullets: 5
+  animator: {fileID: 0}
+  jump: {x: 0, y: 0, z: 0}
+  jumpForce: 4
+  isGrounded: 0
+  crouchSpeed: 0
+  jumpKey: 32
+  sprintKey: 304
+  crouchKey: 306
+  state: 0
 --- !u!114 &405222091
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3420,6 +3428,7 @@ MonoBehaviour:
   player: {fileID: 405222088}
   detectionRange: 2
   chaseRange: 5
+  isStunned: 0
 --- !u!4 &736403214 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 796652407307068396, guid: 8ee08d04ad5df46fbb2e97260b63420b, type: 3}
@@ -4932,6 +4941,7 @@ MonoBehaviour:
   player: {fileID: 405222088}
   detectionRange: 5
   chaseRange: 10
+  isStunned: 0
 --- !u!54 &1044047151
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -6208,6 +6218,7 @@ GameObject:
   - component: {fileID: 1381401005}
   - component: {fileID: 1381401010}
   - component: {fileID: 1381401011}
+  - component: {fileID: 1381401012}
   m_Layer: 0
   m_Name: Gate
   m_TagString: Untagged
@@ -6321,6 +6332,27 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.0000002, y: 1, z: 1.0000002}
   m_Center: {x: -0.00000035762787, y: 0, z: 0.0000038146973}
+--- !u!95 &1381401012
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1381401003}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: daf1b038a02f65147ba6558e0fefc17e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1416101068
 GameObject:
   m_ObjectHideFlags: 0

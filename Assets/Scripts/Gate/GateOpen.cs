@@ -10,21 +10,10 @@ public class GateOpen : MonoBehaviour
     void Start()
     {
         gate = GetComponent<Animator>();
+        gate.SetBool("Near", false);
     }
-
-    private void OnTriggerEnter(Collider other)
+    public void OpenTheGate()
     {
-        if (other.gameObject.tag == "Player")
-        {
-            gate.SetBool("Near", true);
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject.tag == "Player")
-        {
-            gate.SetBool("Near", false);
-        }
+        gate.SetBool("Near", true);
     }
 }

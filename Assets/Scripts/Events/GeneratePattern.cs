@@ -26,7 +26,7 @@ public class GeneratePattern : MonoBehaviour
     public float rotationSpeed = 5f; // Speed of camera rotation
     public float distanceFromPlayer = 3f; // Distance of camera from player
     public float heightOffset = 0f; // Height offset of camera from player
-    private bool rotating = false; // Flag to indicate if rotation is in progress
+    //private bool rotating = false; // Flag to indicate if rotation is in progress
 
     // Start is called before the first frame update
     void Start()
@@ -46,39 +46,56 @@ public class GeneratePattern : MonoBehaviour
 
     }
 
-    // Update is called once per frame
-    void Update()
-    {
+    private bool playerIsNear = false;
 
+    public void PlayerEnteredTrigger()
+    {
+        playerIsNear = true;
     }
 
-    void OnTriggerStay(Collider other)
+    public void PlayerExitedTrigger()
     {
-        if (other.CompareTag("Player"))
+        playerIsNear = false;
+    }
+
+    private void Update()
+    {
+        if (playerIsNear && Input.GetKeyDown(KeyCode.C) && !isCorrect && !hasGenerated)
         {
-            Debug.Log("Collided with button.");
-
-            if (Input.GetButtonDown("Interact"))
-            {
-                //if (!rotating)
-                //{
-                //    RotateCamera();
-                //}
-
-                Debug.Log("Button pressed!");
-                onButtonPress.Invoke();
-
-                if (!hasGenerated && !isCorrect)
-                {
-                    StartCoroutine(PlayPattern());
-                    hasGenerated = true;
-                    lightsReset = false;
-                    Debug.Log("pattern generated");
-                }
-
-            }
+            StartCoroutine(PlayPattern());
+            hasGenerated = true;
+            lightsReset = false;
+            Debug.Log("pattern generated");
         }
     }
+
+    // void OnTriggerStay(Collider other)
+    // {
+    //     if (other.CompareTag("Player"))
+    //     {
+    //         Debug.Log("Collided with button.");
+
+    //         if (Input.GetButtonDown("Interact"))
+    //         {
+    //             //if (!rotating)
+    //             //{
+    //             //    RotateCamera();
+    //             //}
+
+    //             Debug.Log("Button pressed!");
+    //             onButtonPress.Invoke();
+
+    //             if (!hasGenerated && !isCorrect)
+    //             {
+    //                 StartCoroutine(PlayPattern());
+    //                 hasGenerated = true;
+    //                 lightsReset = false;
+    //                 Debug.Log("pattern generated");
+    //             }
+
+    //         }
+    //     }
+    // }
 
     public void StorePressedButton(GameObject lightbulb)
     {
@@ -95,7 +112,7 @@ public class GeneratePattern : MonoBehaviour
                 }
 
                 break; // Exit loop after adding the button
-            }  
+            }
         }
     }
 
@@ -105,7 +122,7 @@ public class GeneratePattern : MonoBehaviour
         {
             orderedLightbulbs[i].GetComponent<MeshRenderer>().material = lightOn;
 
-             // Wait for a certain amount of time
+            // Wait for a certain amount of time
             yield return new WaitForSeconds(intervalBetweenLights);
 
             orderedLightbulbs[i].GetComponent<MeshRenderer>().material = lightOff;
@@ -140,7 +157,7 @@ public class GeneratePattern : MonoBehaviour
                 Debug.Log("correct pattern!");
                 isCorrect = true;
                 DisplayCorrect();
-                FinishMiniGame();
+                OpenGate();
             }
         }
     }
@@ -168,42 +185,10 @@ public class GeneratePattern : MonoBehaviour
 
         ResetLights();
     }
-
-    void FinishMiniGame()
+    public GateOpen gateController;
+    void OpenGate()
     {
-        // Restore player's position after finishing mini-game
-        float posX = PlayerPrefs.GetFloat("PlayerPosX");
-        float posY = PlayerPrefs.GetFloat("PlayerPosY");
-        float posZ = PlayerPrefs.GetFloat("PlayerPosZ");
-
-        GameObject.FindGameObjectWithTag("Player").transform.position = new Vector3(posX, posY, posZ);
-
-        SceneManager.LoadScene("SampleScene - Copy");
-
+        gateController.OpenTheGate();
     }
 
-    //void RotateCamera()
-    //{
-    //    Vector3 playerForward = player.forward;
-    //    Quaternion targetRotation = Quaternion.LookRotation(playerForward, Vector3.up);
-    //    StartCoroutine(RotateCameraCoroutine(targetRotation));
-    //}
-
-    //IEnumerator RotateCameraCoroutine(Quaternion targetRotation)
-    //{
-    //    rotating = true;
-
-    //    Smoothly rotate the camera towards the target rotation
-    //    while (Quaternion.Angle(mainCamera.transform.rotation, targetRotation) > 0.01f)
-    //    {
-    //        mainCamera.transform.rotation = Quaternion.Slerp(mainCamera.transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
-    //        Calculate new position for the camera behind the player
-
-    //       Vector3 newPosition = player.position - (player.forward * distanceFromPlayer) + (Vector3.up * heightOffset);
-    //        mainCamera.transform.position = newPosition;
-    //        yield return null;
-    //    }
-
-    //    rotating = false;
-    //}
 }

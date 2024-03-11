@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class throwing : MonoBehaviour
 {
@@ -10,12 +11,22 @@ public class throwing : MonoBehaviour
     public GameObject objectRigidbody;
     public Transform appleSpawn;
     public Transform cam;
+    public int numHit;
+
+    // void Start() {
+    //     numHit = 0;
+    // }
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.T))
         {
             Throw();
+        }
+
+        if (numHit == 3) {
+            SceneManager.LoadScene("SampleScene");
+            Time.timeScale = 1f;
         }
     }
 

@@ -1657,6 +1657,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cfc1b4b00a484d7a975eaa7375bce68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  numTarget: {fileID: 405222097}
 --- !u!65 &318305307
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2347,6 +2348,7 @@ MonoBehaviour:
   objectRigidbody: {fileID: 1549469001}
   appleSpawn: {fileID: 1426976535}
   cam: {fileID: 963194228}
+  numHit: 0
 --- !u!114 &405222098
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2359,6 +2361,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cfc1b4b00a484d7a975eaa7375bce68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  numTarget: {fileID: 0}
 --- !u!114 &405222099
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2903,6 +2906,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cfc1b4b00a484d7a975eaa7375bce68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  numTarget: {fileID: 405222097}
 --- !u!54 &512716726
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -5382,6 +5386,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cfc1b4b00a484d7a975eaa7375bce68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  numTarget: {fileID: 405222097}
 --- !u!65 &1177351481
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6494,6 +6499,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cfc1b4b00a484d7a975eaa7375bce68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  numTarget: {fileID: 0}
 --- !u!1 &1556921430
 GameObject:
   m_ObjectHideFlags: 0

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028326, g: 0.22571333, b: 0.30692202, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -7943,6 +7943,8 @@ MonoBehaviour:
   sprintKey: 304
   crouchKey: 306
   state: 0
+  fallDamageThreshold: 1
+  damageMultiplier: 0.05
 --- !u!4 &1253963084 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7498559381905433718, guid: 4bfa3702fc24c6849ad96f32bdf121de, type: 3}

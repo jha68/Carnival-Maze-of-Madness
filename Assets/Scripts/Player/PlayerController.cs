@@ -49,6 +49,7 @@ public class PlayerController : MonoBehaviour
     private HealthBarHUDTester healthBarHUDTester;
     private float airTime = 0f;
     private bool triggerFalling = false;
+    public static bool isPaused = false;
 
 
     public MovementState state;
@@ -78,6 +79,14 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        if (Input.GetKeyUp(KeyCode.Escape))
+        {
+            isPaused = !isPaused;
+
+        }
+
+        if (isPaused) return;
+
         if (Input.GetKey(sprintKey) && canRun && stamina > 0)
         {
             isRunning = true;

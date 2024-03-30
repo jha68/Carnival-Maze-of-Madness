@@ -4,23 +4,25 @@ using UnityEngine;
 
 public class RightGateController : MonoBehaviour
 {
-    public Animator right; 
+    public Animator right;
 
-   
+
 
     private void OnTriggerEnter(Collider other)
     {
-        print("Player is near");
         if (other.gameObject.tag == "Player")
         {
-            right.SetBool("Near", true);
+            PlayerStats playerStats = other.GetComponent<PlayerStats>();
+            if (playerStats != null && playerStats.isCatFound)
+            {
+                right.SetBool("Near", true);
+            }
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
 
-        print("Player is not near");
         if (other.gameObject.tag == "Player")
         {
             right.SetBool("Near", false);

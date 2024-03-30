@@ -46,6 +46,7 @@ public class PlayerController : MonoBehaviour
     public KeyCode jumpKey = KeyCode.Space;
     public KeyCode sprintKey = KeyCode.LeftShift;
     public KeyCode crouchKey = KeyCode.LeftControl;
+    private HealthBarHUDTester healthBarHUDTester;
 
     public MovementState state;
     public enum MovementState
@@ -64,7 +65,12 @@ public class PlayerController : MonoBehaviour
         UpdateBulletsUI(); // Update the bullets text at the start
         rb = GetComponent<Rigidbody>();
         jump = new Vector3(0.0f, 2.0f, 0.0f);
+        healthBarHUDTester = GameObject.FindGameObjectWithTag("Player").GetComponent<HealthBarHUDTester>();
     }
+    private bool isFalling = false;
+    private float fallStartLevel;
+    public float fallDamageThreshold = 1f; // The height threshold to start taking damage from falling
+    public float damageMultiplier = .1f; // Adjusts the amount of damage taken from falling
 
     void Update()
     {
@@ -145,6 +151,26 @@ public class PlayerController : MonoBehaviour
         }
         UpdateStaminaText(); // Update the stamina text every frame
         UpdateBulletsUI(); // Update the bullets text every frame
+        // Check if the player has started falling
+        if (!isGrounded && !isFalling)
+        {
+            isFalling = true;
+            fallStartLevel = transform.position.y;
+        }
+
+        // Check if the player has landed
+        if (isGrounded && isFalling)
+        {
+            isFalling = false;
+            float fallDistance = fallStartLevel - transform.position.y;
+            if (fallDistance > fallDamageThreshold)
+            {
+                // Apply damage based on fall distance minus the threshold
+                float damage = (fallDistance - fallDamageThreshold) * damageMultiplier;
+                healthBarHUDTester?.Hurt(damage);
+                Debug.Log(damage);
+            }
+        }
 
     }
 

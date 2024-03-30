@@ -36,6 +36,7 @@ public class PlayerStats : MonoBehaviour
     public float Health { get { return health; } }
     public float MaxHealth { get { return maxHealth; } }
     public float MaxTotalHealth { get { return maxTotalHealth; } }
+    public bool isCatFound = false;
 
     public void Heal(float health)
     {

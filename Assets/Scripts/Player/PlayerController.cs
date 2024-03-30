@@ -47,6 +47,9 @@ public class PlayerController : MonoBehaviour
     public KeyCode sprintKey = KeyCode.LeftShift;
     public KeyCode crouchKey = KeyCode.LeftControl;
     private HealthBarHUDTester healthBarHUDTester;
+    private float airTime = 0f;
+    private bool triggerFalling = false;
+
 
     public MovementState state;
     public enum MovementState
@@ -66,6 +69,7 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         jump = new Vector3(0.0f, 2.0f, 0.0f);
         healthBarHUDTester = GameObject.FindGameObjectWithTag("Player").GetComponent<HealthBarHUDTester>();
+        animator = GetComponent<Animator>();
     }
     private bool isFalling = false;
     private float fallStartLevel;
@@ -94,11 +98,36 @@ public class PlayerController : MonoBehaviour
         {
             rb.AddForce(jump * jumpForce, ForceMode.Impulse);
             isGrounded = false;
+            airTime = 0f;
+            triggerFalling = false;
+            animator.SetBool("isJumping", true);
         } // Mode - Crouching
         else if (Input.GetKey(crouchKey))
         {
             state = MovementState.crouching;
             moveSpeed = crouchSpeed;
+        }
+
+        if (!isGrounded)
+        {
+            airTime += Time.deltaTime;
+            // Check to trigger the falling animation after being in the air for more than 1.5 seconds
+            if (airTime > 1.5f && !triggerFalling)
+            {
+                Debug.Log("It's falling");
+                animator.SetBool("isFalling", true); // Trigger falling animation
+                triggerFalling = true; // Ensure we don't repeatedly trigger the falling animation
+            }
+        }
+        else
+        {
+            // Reset conditions when the player lands
+            if (triggerFalling)
+            {
+                animator.SetBool("isFalling", false); // Stop falling animation
+                triggerFalling = false; // Reset for next jump
+            }
+            animator.SetBool("isJumping", false); // Ensure jumping is reset when grounded
         }
 
         if (!canRun)
@@ -234,5 +263,6 @@ public class PlayerController : MonoBehaviour
     void OnCollisionStay()
     {
         isGrounded = true;
+        animator.SetBool("isJumping", false);
     }
 }

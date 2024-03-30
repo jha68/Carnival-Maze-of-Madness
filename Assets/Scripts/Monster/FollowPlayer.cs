@@ -28,8 +28,11 @@ public class FollowPlayer : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             isFound = true;
+            // Set the isPetFound flag on the PlayerStats instance to true
+            other.GetComponent<PlayerStats>().isCatFound = true;
         }
     }
+
 
     void ChasePlayer()
     {

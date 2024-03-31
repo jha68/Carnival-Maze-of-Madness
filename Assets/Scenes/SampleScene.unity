@@ -3512,7 +3512,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 170.07239, w: 0}
+  m_margin: {x: 0, y: 0, z: 108.12024, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -13663,7 +13663,8 @@ MonoBehaviour:
     the place to help me!
 
 
-    Popcorn = ...
+    Food = Heal, Teddy Bear = Stamina, Apple = Throwable
+    (Press T)
 
 '
   m_isRightToLeft: 0
@@ -13729,7 +13730,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 170.07239, w: 0}
+  m_margin: {x: 0, y: 0, z: 73.89667, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0

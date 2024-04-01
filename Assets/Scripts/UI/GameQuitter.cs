@@ -12,9 +12,7 @@ public class GameQuitter : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
-        if (Input.GetKeyUp(KeyCode.Escape))
-            QuitGame();
+    {       
 
     }
 
@@ -23,6 +21,7 @@ public class GameQuitter : MonoBehaviour
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
 #else
+        PlayerController.isPaused = false;
         Application.Quit();
 #endif
     }

@@ -8,148 +8,37 @@ using TMPro;
 public class PlayerControllerAppleGame : MonoBehaviour
 {
 
-    public GameObject bulletPrefab; 
-    public Transform bulletSpawnPoint;
-
 
     // the speed of movement
     public float moveSpeed;
 
-    public float runSpeedMultiplier = 1.5f;
-    private bool isRunning = false;
-    public float maxStamina = 100f;
-    public float stamina;
-    public float staminaDecreasePerSecond = 20f;
-    public float staminaRegenPerSecond = 3f;
-
-    public TextMeshProUGUI staminaText;
-    public TextMeshProUGUI bulletsText;
-
     // Time after the steminer is zero, it does not recover
-    public float runDelay = 2f;
-    private bool canRun = true;
-    private float timeSinceStaminaDepleted;
+
 
     // the direction of movement
     private Vector3 moveDirection = Vector3.zero;
 
-    public int maxBullets = 5;
-    private int currentBullets;
 
 
-    void Start()
-    {
-        currentBullets = maxBullets;
-        stamina = maxStamina;
-        UpdateStaminaText(); // Update the stamina text at the start
-        UpdateBulletsText(); // Update the bullets text at the start
-    }
 
     void Update()
     {
-        if (Input.GetKey(KeyCode.Space) && canRun && stamina > 0)
-        {
-            isRunning = true;
-            stamina -= staminaDecreasePerSecond * Time.deltaTime;
-            stamina = Mathf.Max(stamina, 0);
-            if (stamina <= 0)
-            {
-                canRun = false;
-                timeSinceStaminaDepleted = 0;
-            }
-        } 
-        else 
-        {
-            isRunning = false;
-        }
-
-        if (!canRun) 
-        {
-            timeSinceStaminaDepleted += Time.deltaTime;
-            if (timeSinceStaminaDepleted >= runDelay)
-            {
-                canRun = true;
-            }
-        }
-
-        if (stamina < maxStamina)
-        {
-            stamina += staminaRegenPerSecond * Time.deltaTime;
-        }
-        stamina = Mathf.Clamp(stamina, 0, maxStamina);
-
-        if (stamina <= 0 && isRunning)
-        {
-            isRunning = false;
-            canRun = false;
-            timeSinceStaminaDepleted = 0;
-        }
-
-
-
         float currentSpeed = moveSpeed;
-        if (isRunning)
-        {
-            currentSpeed *= runSpeedMultiplier;
-        }
-
+        float horizontalInput = Input.GetAxis("Horizontal");
+        Vector3 movement = new Vector3(0f, 0f, horizontalInput) * moveSpeed * Time.deltaTime;
 
         // if (moveDirection != Vector3.zero)
         // {
         //     // Rotating the character to look in the direction of movement
         //     transform.rotation = Quaternion.LookRotation(moveDirection);
         // }
-        
+
         // Move
-        transform.position += moveDirection * currentSpeed * Time.deltaTime;
-        
-
-        if (Input.GetKeyDown(KeyCode.Z) && currentBullets > 0) 
-        {
-            GetComponent<BulletShooter>().Shoot();
-            currentBullets--;
-        }
-        UpdateStaminaText(); // Update the stamina text every frame
-        UpdateBulletsText(); // Update the bullets text every frame
-
+        transform.position += movement;
     }
 
 
-    void UpdateStaminaText()
-    {
-        if (staminaText != null) // Check if the Text reference is assigned
-        {
-            staminaText.text = "Stamina: " + Mathf.RoundToInt(stamina).ToString();
-        }
-    }
 
-    void UpdateBulletsText()
-    {
-        if (bulletsText != null) // Check if the Text reference is assigned
-        {
-            bulletsText.text = "Bullets: " + Mathf.RoundToInt(currentBullets).ToString();
-        }
-    }
 
-    public void OnMove(InputValue value)
-    {
-        Vector2 input = value.Get<Vector2>();
-        // Set new direction of movement based on input
-        moveDirection = new Vector3(0, 0, input.x).normalized;
-    }
 
-    public void IncreaseStamina(float amount)
-    {
-        stamina += amount;
-        stamina = Mathf.Clamp(stamina, 0, maxStamina); 
-        UpdateStaminaText(); 
-    }
-
-    // increasing the number of bullets
-    public void AddBullets(int amount)
-    {
-        currentBullets += amount;
-        currentBullets = Mathf.Clamp(currentBullets, 0, maxBullets); // Ensure that the number of bullets does not exceed the maximum
-        UpdateBulletsText();
-    }
 }

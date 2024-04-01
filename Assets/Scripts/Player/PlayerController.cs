@@ -4,6 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -85,7 +86,7 @@ public class PlayerController : MonoBehaviour
 
         }
 
-        if (isPaused) return;
+        if (isPaused || SceneManager.GetActiveScene().name == "throwingApples") return;
 
         if (Input.GetKey(sprintKey) && canRun && stamina > 0)
         {
@@ -111,11 +112,11 @@ public class PlayerController : MonoBehaviour
             triggerFalling = false;
             animator.SetBool("isJumping", true);
         } // Mode - Crouching
-        else if (Input.GetKey(crouchKey))
-        {
-            state = MovementState.crouching;
-            moveSpeed = crouchSpeed;
-        }
+        //else if (Input.GetKey(crouchKey))
+        //{
+        //    state = MovementState.crouching;
+        //    moveSpeed = crouchSpeed;
+        //}
 
         if (!isGrounded)
         {
@@ -181,12 +182,15 @@ public class PlayerController : MonoBehaviour
 
         // Move
         transform.position += moveDirection * currentSpeed * Time.deltaTime;
-
-        if (Input.GetKeyDown(KeyCode.Z) && currentBullets > 0)
+        if (!PlayerSwitchAppleScene.isMiniGameActive)
         {
-            GetComponent<BulletShooter>().Shoot();
-            currentBullets--;
+            if (Input.GetKeyDown(KeyCode.Z) && currentBullets > 0)
+            {
+                GetComponent<BulletShooter>().Shoot();
+                currentBullets--;
+            }
         }
+            
         UpdateStaminaText(); // Update the stamina text every frame
         UpdateBulletsUI(); // Update the bullets text every frame
         // Check if the player has started falling

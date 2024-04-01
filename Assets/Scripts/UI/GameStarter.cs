@@ -19,6 +19,7 @@ public class GameStarter : MonoBehaviour
 
     public void StartGame()
     {
+        PlayerController.isPaused = false;
         SceneManager.LoadScene("SampleScene");
     }
 }

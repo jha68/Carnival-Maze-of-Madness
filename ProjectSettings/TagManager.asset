@@ -12,6 +12,7 @@ TagManager:
   - Target2
   - Target3
   - Apple
+  - ParkourArea
   layers:
   - Default
   - TransparentFX

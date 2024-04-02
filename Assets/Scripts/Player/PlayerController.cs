@@ -41,6 +41,8 @@ public class PlayerController : MonoBehaviour
     public Vector3 jump;
     public float jumpForce = 4.0f;
     public bool isGrounded;
+    private bool allowJump = false;
+
     //crouch
     public float crouchSpeed;
     [Header("Keybinds")]
@@ -103,42 +105,48 @@ public class PlayerController : MonoBehaviour
         {
             isRunning = false;
         }
-        //jump
-        if (Input.GetKeyDown(jumpKey) && isGrounded)
-        {
-            rb.AddForce(jump * jumpForce, ForceMode.Impulse);
-            isGrounded = false;
-            airTime = 0f;
-            triggerFalling = false;
-            animator.SetBool("isJumping", true);
-        } // Mode - Crouching
-        //else if (Input.GetKey(crouchKey))
-        //{
-        //    state = MovementState.crouching;
-        //    moveSpeed = crouchSpeed;
-        //}
 
-        if (!isGrounded)
+        if (allowJump)
         {
-            airTime += Time.deltaTime;
-            // Check to trigger the falling animation after being in the air for more than 1.5 seconds
-            if (airTime > 1.5f && !triggerFalling)
+            //jump
+            if (Input.GetKeyDown(jumpKey) && isGrounded)
             {
-                Debug.Log("It's falling");
-                animator.SetBool("isFalling", true); // Trigger falling animation
-                triggerFalling = true; // Ensure we don't repeatedly trigger the falling animation
-            }
-        }
-        else
-        {
-            // Reset conditions when the player lands
-            if (triggerFalling)
+                rb.AddForce(jump * jumpForce, ForceMode.Impulse);
+                isGrounded = false;
+                airTime = 0f;
+                triggerFalling = false;
+                animator.SetBool("isJumping", true);
+            } // Mode - Crouching
+              //else if (Input.GetKey(crouchKey))
+              //{
+              //    state = MovementState.crouching;
+              //    moveSpeed = crouchSpeed;
+              //}
+
+            if (!isGrounded)
             {
-                animator.SetBool("isFalling", false); // Stop falling animation
-                triggerFalling = false; // Reset for next jump
+                airTime += Time.deltaTime;
+                // Check to trigger the falling animation after being in the air for more than 1.5 seconds
+                if (airTime > 1.5f && !triggerFalling)
+                {
+                    Debug.Log("It's falling");
+                    animator.SetBool("isFalling", true); // Trigger falling animation
+                    triggerFalling = true; // Ensure we don't repeatedly trigger the falling animation
+                }
             }
-            animator.SetBool("isJumping", false); // Ensure jumping is reset when grounded
+            else
+            {
+                // Reset conditions when the player lands
+                if (triggerFalling)
+                {
+                    animator.SetBool("isFalling", false); // Stop falling animation
+                    triggerFalling = false; // Reset for next jump
+                }
+                animator.SetBool("isJumping", false); // Ensure jumping is reset when grounded
+            }
+            //end jump
         }
+
 
         if (!canRun)
         {
@@ -277,5 +285,25 @@ public class PlayerController : MonoBehaviour
     {
         isGrounded = true;
         animator.SetBool("isJumping", false);
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("ParkourArea"))
+        {
+            allowJump = true;
+            print("can jump now");
+            print(allowJump);
+        }
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("ParkourArea"))
+        {
+            allowJump = false;
+            print("cannot jump now");
+            print(allowJump);
+        }
     }
 }

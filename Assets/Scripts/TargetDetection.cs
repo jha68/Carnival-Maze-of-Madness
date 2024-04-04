@@ -22,7 +22,7 @@ public class TargetDetection : MonoBehaviour
                 // Debug.Log(numHit);
                 Destroy(GameObject.FindWithTag("Target1"));
                 numTarget.numHit += 1;
-                Debug.Log(numTarget.numHit);
+                Debug.Log("Target 1");
             }
 
             if(gameObject.tag == "Target2") {
@@ -30,7 +30,7 @@ public class TargetDetection : MonoBehaviour
                 // Debug.Log(numHit);
                 Destroy(GameObject.FindWithTag("Target2"));
                 numTarget.numHit += 1;
-                Debug.Log(numTarget.numHit);
+                Debug.Log("Target 2");
             }
 
             if(gameObject.tag == "Target3") {
@@ -38,7 +38,7 @@ public class TargetDetection : MonoBehaviour
                 // Debug.Log(numHit);
                 Destroy(GameObject.FindWithTag("Target3"));
                 numTarget.numHit += 1;
-                Debug.Log(numTarget.numHit);
+                Debug.Log("Target 3");
             }
         }
     }

@@ -190,7 +190,7 @@ public class PlayerController : MonoBehaviour
 
         // Move
         transform.position += moveDirection * currentSpeed * Time.deltaTime;
-        if (!PlayerSwitchAppleScene.isMiniGameActive)
+        if (!SwitchAppleGame.isMiniGameActive)
         {
             if (Input.GetKeyDown(KeyCode.Z) && currentBullets > 0)
             {

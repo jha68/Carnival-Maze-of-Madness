@@ -11,6 +11,7 @@ public class SwitchAppleGame : MonoBehaviour
     public static bool hasGenerated = false;
     private EventSystem currentEventSystem;
     private AudioListener currentAudioListener;
+    public GameObject activateKey;
 
     void Awake()
     {
@@ -56,6 +57,7 @@ public class SwitchAppleGame : MonoBehaviour
         if (isPaused || isMiniGameActive) return;
         if (playerIsNear && Input.GetKeyDown(KeyCode.C) && !hasGenerated)
         {
+            activateKey.SetActive(true);
             hasGenerated = true;
             if (currentEventSystem) currentEventSystem.gameObject.SetActive(false);
             if (currentAudioListener) currentAudioListener.enabled = false;
@@ -69,7 +71,7 @@ public class SwitchAppleGame : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        if (scene.name == "SampleScene") 
+        if (scene.name == "SampleScene")
         {
             var playerController = FindObjectOfType<PlayerController>();
             if (playerController != null)

@@ -11,7 +11,8 @@ public class PlayerController : MonoBehaviour
 
     public Transform bulletSpawnPoint;
 
-
+    public GameObject cat;
+    public GameObject cat_original;
     // the speed of movement
     public float moveSpeed;
 
@@ -74,6 +75,7 @@ public class PlayerController : MonoBehaviour
         jump = new Vector3(0.0f, 2.0f, 0.0f);
         healthBarHUDTester = GameObject.FindGameObjectWithTag("Player").GetComponent<HealthBarHUDTester>();
         animator = GetComponent<Animator>();
+        cat.SetActive(false);
     }
     private bool isFalling = false;
     private float fallStartLevel;
@@ -198,7 +200,7 @@ public class PlayerController : MonoBehaviour
                 currentBullets--;
             }
         }
-            
+
         UpdateStaminaText(); // Update the stamina text every frame
         UpdateBulletsUI(); // Update the bullets text every frame
         // Check if the player has started falling
@@ -292,6 +294,8 @@ public class PlayerController : MonoBehaviour
         if (other.CompareTag("ParkourArea"))
         {
             allowJump = true;
+            cat.SetActive(true);
+            cat_original.SetActive(false);
             print("can jump now");
             print(allowJump);
         }

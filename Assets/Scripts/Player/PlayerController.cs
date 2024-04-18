@@ -55,9 +55,16 @@ public class PlayerController : MonoBehaviour
     private bool triggerFalling = false;
     public static bool isPaused = false;
 
+    public AudioSource audioSource1;
+    public AudioSource audioSource2;
+    public AudioClip walkSound;
+    public AudioClip runSound;
 
     public MovementState state;
     public enum MovementState
+
+    
+
     {
         walking,
         sprinting,
@@ -91,6 +98,8 @@ public class PlayerController : MonoBehaviour
         }
 
         if (isPaused || SceneManager.GetActiveScene().name == "throwingApples") return;
+
+
 
         if (Input.GetKey(sprintKey) && canRun && stamina > 0)
         {
@@ -192,6 +201,34 @@ public class PlayerController : MonoBehaviour
 
         // Move
         transform.position += moveDirection * currentSpeed * Time.deltaTime;
+
+        if (moveDirection.magnitude > 0 && isRunning)
+        {
+            if (!audioSource1.isPlaying)
+            {
+                audioSource1.clip = runSound;
+                audioSource1.Play();
+            }
+           
+        }
+        else
+        {
+            audioSource1.Stop();
+        }
+        if (moveDirection.magnitude > 0 && !isRunning)
+        {
+            if (!audioSource2.isPlaying)
+            {
+                audioSource2.clip = walkSound;
+                audioSource2.Play();
+            }
+
+        }
+        else
+        {
+            audioSource2.Stop();
+        }
+
         if (!SwitchAppleGame.isMiniGameActive)
         {
             if (Input.GetKeyDown(KeyCode.Z) && currentBullets > 0)

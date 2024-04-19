@@ -9,11 +9,14 @@ public class ButtonCollisionController : MonoBehaviour
     public Material lightOn;
     public GameObject lightbulb;
     public GeneratePattern generatePattern;
+    public float intervalBetweenOnOff = .5f; // Interval for which the light is on
 
     private MeshRenderer objectRenderer;
     private bool isTurnedOn;
     private bool isNearby = false; // Variable to track if player is near the button
     private UnityEvent onButtonPress;
+
+    private AudioSource audioSource;
 
     void Start()
     {
@@ -21,6 +24,7 @@ public class ButtonCollisionController : MonoBehaviour
         isTurnedOn = false;
         onButtonPress = new UnityEvent();
         generatePattern = FindObjectOfType<GeneratePattern>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -34,13 +38,26 @@ public class ButtonCollisionController : MonoBehaviour
         // Check if the player is nearby and the player presses the interact button
         if (isNearby && Input.GetButtonDown("Interact") && !generatePattern.isCorrect && generatePattern.hasGenerated)
         {
+            audioSource.Play();
             if (!isTurnedOn)
             {
-                objectRenderer.material = lightOn;
+                StartCoroutine(TurnOnAndOff()); // Start the coroutine to turn on and off the light
                 generatePattern.StorePressedButton(lightbulb);
-                isTurnedOn = true;
             }
             onButtonPress.Invoke();
+        }
+    }
+
+    private IEnumerator TurnOnAndOff()
+    {
+        objectRenderer.material = lightOn; // Turn on the light
+        isTurnedOn = true;
+
+        yield return new WaitForSeconds(intervalBetweenOnOff); // Wait for the interval
+
+        if (!generatePattern.playerSubmitted) {
+            objectRenderer.material = lightOff; // Turn off the light
+            isTurnedOn = false;
         }
     }
 

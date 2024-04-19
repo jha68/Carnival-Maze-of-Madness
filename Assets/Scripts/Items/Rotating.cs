@@ -11,4 +11,18 @@ public class Rotating : MonoBehaviour
         // Rotate around the y-axis at the specified speed
         transform.Rotate(Vector3.up, rotationSpeed * Time.deltaTime);
     }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            // Get the PlayerController component from the colliding object
+            PlayerController playerController = other.GetComponent<PlayerController>();
+
+            if (playerController != null)
+            {
+                other.GetComponent<PlayerStats>().isKeyFound = true;
+            }
+            Destroy(gameObject);
+        }
+    }
 }

@@ -37,13 +37,17 @@ public class PlayerStats : MonoBehaviour
     public float MaxHealth { get { return maxHealth; } }
     public float MaxTotalHealth { get { return maxTotalHealth; } }
     public bool isCatFound = false;
-
+    public bool isKeyFound = false;
+    private AudioSource audioSource;
     public void Heal(float health)
     {
         this.health += health;
         ClampHealth();
     }
-
+    void Start()
+    {
+        audioSource = GetComponent<AudioSource>(); // Get the AudioSource component
+    }
     public void TakeDamage(float dmg)
     {
         health -= dmg;
@@ -51,6 +55,10 @@ public class PlayerStats : MonoBehaviour
         if (health <= 0)
         {
             Respawn();
+        }
+        if (audioSource != null)
+        {
+            audioSource.Play(); // Play the damage sound
         }
     }
 

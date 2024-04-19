@@ -11,7 +11,7 @@ public class LeftGateController : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
             PlayerStats playerStats = other.GetComponent<PlayerStats>();
-            if (playerStats != null && playerStats.isCatFound)
+            if (playerStats != null && playerStats.isCatFound && playerStats.isKeyFound)
             {
                 left.SetBool("Near", true);
             }

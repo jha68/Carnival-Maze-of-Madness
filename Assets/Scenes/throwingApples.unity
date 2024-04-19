@@ -1658,6 +1658,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   numTarget: {fileID: 405222097}
+  target11: {fileID: 0}
+  target22: {fileID: 981025876}
+  target33: {fileID: 0}
 --- !u!65 &318305307
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2665,6 +2668,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   numTarget: {fileID: 405222097}
+  target11: {fileID: 954458170}
+  target22: {fileID: 0}
+  target33: {fileID: 0}
 --- !u!54 &512716726
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -4877,6 +4883,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   numTarget: {fileID: 405222097}
+  target11: {fileID: 0}
+  target22: {fileID: 0}
+  target33: {fileID: 601948694}
 --- !u!65 &1177351481
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6012,6 +6021,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   numTarget: {fileID: 0}
+  target11: {fileID: 0}
+  target22: {fileID: 0}
+  target33: {fileID: 0}
 --- !u!1 &1556921430
 GameObject:
   m_ObjectHideFlags: 0

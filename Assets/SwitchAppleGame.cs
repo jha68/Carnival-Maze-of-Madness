@@ -88,6 +88,7 @@ public class SwitchAppleGame : MonoBehaviour
         if (scene.name == "throwingApples")
         {
             isMiniGameActive = false;
+            Camera.main.GetComponent<AudioListener>().enabled = true;
         }
     }
 }

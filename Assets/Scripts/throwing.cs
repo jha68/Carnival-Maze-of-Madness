@@ -48,6 +48,8 @@ public class throwing : MonoBehaviour
     IEnumerator ReturnToMainScene()
     {
         yield return SceneManager.UnloadSceneAsync("throwingApples");
+        Camera.main.GetComponent<AudioListener>().enabled = true;
+        Debug.Log("hi");
     }
 
     void Throw()

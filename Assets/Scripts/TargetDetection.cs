@@ -6,6 +6,9 @@ using UnityEngine.SceneManagement;
 public class TargetDetection : MonoBehaviour
 {
     public throwing numTarget;
+    public GameObject target11;
+    public GameObject target22;
+    public GameObject target33;
 
     void Start() {
         numTarget.numHit = 0;
@@ -20,7 +23,8 @@ public class TargetDetection : MonoBehaviour
             if(gameObject.tag == "Target1") {
                 Debug.Log("hit");
                 // Debug.Log(numHit);
-                Destroy(GameObject.FindWithTag("Target1"));
+                //Destroy(GameObject.FindWithTag("Target1"));
+                Destroy(target11);
                 numTarget.numHit += 1;
                 Debug.Log("Target 1");
             }
@@ -28,7 +32,8 @@ public class TargetDetection : MonoBehaviour
             if(gameObject.tag == "Target2") {
                 Debug.Log("hit");
                 // Debug.Log(numHit);
-                Destroy(GameObject.FindWithTag("Target2"));
+                //Destroy(GameObject.FindWithTag("Target2"));
+                Destroy(target22);
                 numTarget.numHit += 1;
                 Debug.Log("Target 2");
             }
@@ -36,7 +41,8 @@ public class TargetDetection : MonoBehaviour
             if(gameObject.tag == "Target3") {
                 Debug.Log("hit");
                 // Debug.Log(numHit);
-                Destroy(GameObject.FindWithTag("Target3"));
+                //Destroy(GameObject.FindWithTag("Target3"));
+                Destroy(target33);
                 numTarget.numHit += 1;
                 Debug.Log("Target 3");
             }

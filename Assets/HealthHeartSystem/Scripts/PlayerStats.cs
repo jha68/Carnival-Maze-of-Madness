@@ -39,6 +39,8 @@ public class PlayerStats : MonoBehaviour
     public bool isCatFound = false;
     public bool isKeyFound = false;
     private AudioSource audioSource;
+    private GameMaster gm;
+
     public void Heal(float health)
     {
         this.health += health;
@@ -47,6 +49,8 @@ public class PlayerStats : MonoBehaviour
     void Start()
     {
         audioSource = GetComponent<AudioSource>(); // Get the AudioSource component
+        gm = GameObject.FindGameObjectWithTag("GM").GetComponent<GameMaster>();
+
     }
     public void TakeDamage(float dmg)
     {
@@ -83,7 +87,7 @@ public class PlayerStats : MonoBehaviour
     }
     void Respawn()
     {
-        transform.position = respawnPosition; // Move the player to the respawn position
+        transform.position = gm.lastCheckPointPos; // Move the player to the respawn position
         transform.rotation = Quaternion.identity; // Reset the player's rotation to default (no rotation)
         health = respawnHealth; // Restore health to respawn value
         Rigidbody rb = GetComponent<Rigidbody>();

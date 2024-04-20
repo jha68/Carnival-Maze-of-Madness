@@ -18,6 +18,8 @@ public class EscapeTime : MonoBehaviour
         {
             playerReplica.SetActive(false);
         }
+
+        activatWinScript = FindObjectOfType<ActivateWin>();
     }
 
     private void OnTriggerEnter(Collider other)

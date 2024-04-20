@@ -27,7 +27,6 @@ public class ActivateWin : MonoBehaviour
             {
                 canvasGroup.interactable = false;
                 canvasGroup.blocksRaycasts = false;
-                canvasGroup.alpha = 0f;
                 Time.timeScale = 1f;
             }
             else

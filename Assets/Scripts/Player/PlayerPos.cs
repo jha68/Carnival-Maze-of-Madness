@@ -17,9 +17,10 @@ public class PlayerPos : MonoBehaviour
     void Update()
     {
 
-        /* if (Input.GetKeyDown(KeyCode.Space)) 
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); 
-        } */
+            transform.position = new Vector3(-26.03f, 31.83f, 29.08f);
+/*            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+*/        }
     }
 }

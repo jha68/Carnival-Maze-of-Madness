@@ -7,7 +7,7 @@ public class FollowPlayer : MonoBehaviour
     public Transform player;
     public float speed = 5.0f;
     public float minimumDistanceToPlayer = 0.5f; // The minimum distance to keep from the player
-    private bool isFound = false;
+    public bool isFound = false;
     private Animator animator;
 
     void Start()

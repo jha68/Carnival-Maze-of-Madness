@@ -11,6 +11,7 @@ public class Rotating : MonoBehaviour
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
+        gm = GameObject.FindGameObjectWithTag("GM").GetComponent<GameMaster>();
     }
 
     void Update()

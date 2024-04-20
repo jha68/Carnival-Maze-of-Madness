@@ -14,11 +14,12 @@ public class throwing : MonoBehaviour
     public Transform cam;
     public int numHit;
 
+    private GameObject key2;
+
     void Start() {
         numHit = 0;
+        key2 = GameObject.Find("Key2");
     }
-
-
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
@@ -40,6 +41,7 @@ public class throwing : MonoBehaviour
         }
 
         if (numHit == 3) {
+            key2.SetActive(true);
             StartCoroutine(ReturnToMainScene());
             Time.timeScale = 1f;
         }

@@ -5,6 +5,13 @@ using UnityEngine;
 public class Rotating : MonoBehaviour
 {
     public float rotationSpeed = 45.0f; // Rotation speed in degrees per second
+    private AudioSource audioSource;
+    private GameMaster gm;
+
+    void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
 
     void Update()
     {
@@ -20,7 +27,10 @@ public class Rotating : MonoBehaviour
 
             if (playerController != null)
             {
-                other.GetComponent<PlayerStats>().isKeyFound = true;
+                /*other.GetComponent<PlayerStats>().isKeyFound = true;*/
+                gm.keys += 1;
+                print(gm.keys);
+                audioSource.Play();
             }
             Destroy(gameObject);
         }

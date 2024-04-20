@@ -27,11 +27,12 @@ public class ItemTutorialTrigger : MonoBehaviour
         UiObject.SetActive(!UiObject.activeSelf); // Toggles the active state of UiObject
         if (UiObject.activeSelf)
         {
-            print("open stocklist");
+            Time.timeScale = 0f;
+
         }
         else
         {
-            print("close stocklist");
+            Time.timeScale = 1;
         }
     }
 

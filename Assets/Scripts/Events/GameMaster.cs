@@ -14,7 +14,8 @@ public class GameMaster : MonoBehaviour
     private GameObject checkpoint2;
     private GameObject checkpoint3;
 
-    public int keys = 0;
+    public int keys;
+    private GameObject key2;
 
     void Awake()
     {
@@ -39,7 +40,10 @@ public class GameMaster : MonoBehaviour
         checkpoint3 = GameObject.Find("Checkpoint3");
 
         checkpoints = new GameObject[3] { checkpoint1, checkpoint2, checkpoint3 };
+        keys = 0;
 
+        key2 = GameObject.Find("Key2");
+        key2.SetActive(false);
     }
 
     // Update is called once per frame

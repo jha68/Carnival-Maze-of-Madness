@@ -90,6 +90,7 @@ public class PlayerStats : MonoBehaviour
         transform.position = gm.lastCheckPointPos; // Move the player to the respawn position
         transform.rotation = Quaternion.identity; // Reset the player's rotation to default (no rotation)
         health = respawnHealth; // Restore health to respawn value
+        isCatFound = false;
         Rigidbody rb = GetComponent<Rigidbody>();
         if (rb != null)
         {

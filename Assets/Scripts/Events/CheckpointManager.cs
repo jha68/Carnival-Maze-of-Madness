@@ -27,6 +27,12 @@ public class CheckpointManager : MonoBehaviour
                 gm.lastCheckPointPos = transform.position;
 
             }
+            else if (name == "Checkpoint3" && gm.lastCheckPoint == 2)
+            {
+                gm.lastCheckPoint = 3;
+                gm.lastCheckPointPos = transform.position;
+
+            }
         }
     }
 /*    public Transform player; // Reference to the player's transform

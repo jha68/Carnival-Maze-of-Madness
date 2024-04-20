@@ -9,6 +9,7 @@ public class EscapeTime : MonoBehaviour
     public GameObject playerReplica; // Reference to the child object (player replica)
 
     private bool isMoving = false;
+    public ActivateWin activatWinScript;
 
     private void Start()
     {
@@ -38,6 +39,7 @@ public class EscapeTime : MonoBehaviour
     IEnumerator MoveUpward()
     {
         isMoving = true;
+        activatWinScript.active = true;
         Vector3 startPosition = transform.position;
         Vector3 endPosition = new Vector3(transform.position.x, transform.position.y + moveDistance, transform.position.z);
 

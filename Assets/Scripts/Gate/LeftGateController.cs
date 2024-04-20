@@ -5,13 +5,14 @@ using UnityEngine;
 public class LeftGateController : MonoBehaviour
 {
     public Animator left;
+    private GameMaster gm;
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Player")
         {
             PlayerStats playerStats = other.GetComponent<PlayerStats>();
-            if (playerStats != null && playerStats.isCatFound && playerStats.isKeyFound)
+            if (playerStats != null && playerStats.isCatFound && gm.keys == 3)
             {
                 left.SetBool("Near", true);
             }

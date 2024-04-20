@@ -37,7 +37,7 @@ public class PlayerStats : MonoBehaviour
     public float MaxHealth { get { return maxHealth; } }
     public float MaxTotalHealth { get { return maxTotalHealth; } }
     public bool isCatFound = false;
-    public bool isKeyFound = false;
+/*    public bool isKeyFound = false;*/
     private AudioSource audioSource;
     private GameMaster gm;
 

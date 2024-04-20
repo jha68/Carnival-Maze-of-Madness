@@ -14,6 +14,8 @@ public class GameMaster : MonoBehaviour
     private GameObject checkpoint2;
     private GameObject checkpoint3;
 
+    public int keys = 0;
+
     void Awake()
     {
         if (instance == null)

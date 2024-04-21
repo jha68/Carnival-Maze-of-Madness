@@ -19,7 +19,7 @@ public class PlayerPos : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            transform.position = new Vector3(-42.56f, 0f, -44.92f);
+           /* transform.position = new Vector3(-42.56f, 0f, -44.92f); */
 /*            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 */        }
     }
